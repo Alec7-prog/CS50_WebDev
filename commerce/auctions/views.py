@@ -16,9 +16,8 @@ class CreateListing(ModelForm):
 
 def index(request):
     return render(request, "auctions/index.html", {
-        "active_listings": Listing.objects.all()
+        "active_listings": Listing.objects.all(),
     })
-
 
 def login_view(request):
     if request.method == "POST":
@@ -98,7 +97,6 @@ def listing(request, title):
         "title": listing.title,
         "description": listing.description,
         "startingBid": listing.formattedBid(),
-        #"image": listing.image.url[17:],
         "image": listing.image,
         "category": listing.category,
         "isInWatchlist": listingInWatchlist
@@ -121,4 +119,16 @@ def watchlist(request):
     return render(request, "auctions/watchlist.html", {
         "watchlist": listings,
         "listLength": len(listings)
+    })
+
+def categories(request):
+    return render(request, "auctions/categories.html", {
+        "categories": Listing.categories
+    })
+
+def category(request, category):
+    listings = Listing.objects.filter(category=category)
+    return render(request, "auctions/category.html", {
+        "listings": listings,
+        "listings_len": len(listings)
     })
