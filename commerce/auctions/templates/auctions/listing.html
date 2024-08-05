@@ -1,0 +1,19 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h1> {{ title }} </h1>
+    <h1> Description: {{ description }} </h1>
+    <h1> {{ startingBid }} </h1>
+    {% if not image == None %}
+        <img class="image" src="{% static image %}" alt="image" width="400" height="400"/>
+    {% endif %}
+    {% if not category == None %}
+        <h1> {{ category }} </h1>
+    {% endif %}
+    {% if isInWatchlist %}
+        <a href="{% url 'edit_watchlist' action='remove' id=title %}">Remove From Watchlist</a>
+    {% else %}
+        <a href="{% url 'edit_watchlist' action='add' id=title %}">Add To Watchlist</a>
+    {% endif %}
+{% endblock %}
