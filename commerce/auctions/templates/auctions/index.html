@@ -1,10 +1,14 @@
 {% extends "auctions/layout.html" %}
+{% load static %}
 
 {% block body %}
     <h2>Active Listings</h2>
     {% for listing in active_listings %}
-        <ul>
-            <l1>{{ listing }}</l1>
-        </ul>
+        <h1> {{ listing.title }} </h1>
+        <h1> Description: {{ listing.description }} </h1>
+        <h1> {{ listing.formattedBid }} </h1>
+        {% if not listing.image == None %}
+            <img class="image" src="{% static listing.image %}" alt="image" width="400" height="400"/>
+        {% endif %}
     {% endfor %}
 {% endblock %}

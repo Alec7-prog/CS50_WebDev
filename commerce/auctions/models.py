@@ -1,10 +1,13 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models    
+import locale
 
 class User(AbstractUser):
     pass 
 
 class Listing(models.Model):
+    locale.setlocale(locale.LC_ALL, '')
+
     categories = {
         "Fashion": "Fashion",
         "Toys": "Toys",
@@ -22,3 +25,6 @@ class Listing(models.Model):
     
     def __str__(self):
         return self.title
+    
+    def formattedBid(self):
+        return locale.currency(self.startingBid,grouping=True)

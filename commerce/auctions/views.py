@@ -16,7 +16,7 @@ class CreateListing(ModelForm):
 
 def index(request):
     return render(request, "auctions/index.html", {
-        "active_listings": Listing.objects.values_list('title', flat=True)
+        "active_listings": Listing.objects.all()
     })
 
 
@@ -97,8 +97,9 @@ def listing(request, title):
     return render(request, "auctions/listing.html", {
         "title": listing.title,
         "description": listing.description,
-        "startingBid": locale.currency(listing.startingBid,grouping=True),
-        "image": listing.image.url[17:],
+        "startingBid": listing.formattedBid(),
+        #"image": listing.image.url[17:],
+        "image": listing.image,
         "category": listing.category,
         "isInWatchlist": listingInWatchlist
     })
